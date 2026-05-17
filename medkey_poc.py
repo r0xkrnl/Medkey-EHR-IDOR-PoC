@@ -7,7 +7,7 @@ print("""
   MEDKEY HOSPITAL SYSTEM - IDOR VULNERABILITY VALIDATION SCRIPT
 =================================================================
 @mit.ansal aka onyxglitch
-githu.com/onyxglitch
+github.com/onyxglitch
 IG: mit.ansal
 """)
 
