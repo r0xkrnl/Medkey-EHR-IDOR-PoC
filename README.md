@@ -23,29 +23,3 @@ public function actionGetPatientById($id)
 {
     return $this->asJson($this->patientService->getPatientById($id)->toArray([], ['policies.insurance']));
 }
-
-**## Proof of Concept (PoC) Simulation
-**
-Since the target environment relies on strict legacy dependencies that may face deprecation on modern container platforms, the core operational flaw can be simulated via an isolated lightweight handler environment (test_idor.php script included).
-Exploit Replication Steps:
-
-    Send an HTTP GET request to the vulnerable endpoint using a normal session parameter token:
-    http://target-host/index.php/medical/patient/get-patient-by-id?id=1
-
-    Modify the target resource identifier array range to target unauthorized nodes:
-    http://target-host/index.php/medical/patient/get-patient-by-id?id=3
-
-    Observe that the backend engine successfully outputs private identifiers (e.g., Patient Charts, Active Insurances) without throwing a 403 Forbidden Exception.
-
-Remediation Standard (Fix)
-
-To patch this vulnerability, explicit ownership validation must be executed prior to data fetching:
-PHP
-
-public function actionGetPatientById($id)
-{
-    if (\Yii::$app->user->id !== $id && !\Yii::$app->user->can('managePatients')) {
-        throw new \yii\web\ForbiddenHttpException('Unauthorized access to patient charts.');
-    }
-    return $this->asJson($this->patientService->getPatientById($id)->toArray([], ['policies.insurance']));
-}
