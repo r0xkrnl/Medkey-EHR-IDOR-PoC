@@ -6,8 +6,7 @@ print("""
 =================================================================
   MEDKEY HOSPITAL SYSTEM - IDOR VULNERABILITY VALIDATION SCRIPT
 =================================================================
-github.com/pwnmit
-IG: mit.ansal
+github.com/r0xkrnl
 """)
 
 # User input for Target IP / URL
